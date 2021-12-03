@@ -33,6 +33,21 @@ const {
 // < 16
 
 function exponencial(exp) {
+    return function(value){
+        if(exp==2)return Math.pow(value,exp)
+        //if(exp == 2){
+        //console.log(value * value);
+        //return value * value;
+        if(exp==3)return Math.pow(value,exp)
+        //if(exp == 3){
+        //    console.log(value * value * value);
+        //    return value * value * value;
+        if(exp==4)return Math.pow(value,exp)
+        //if(exp == 4){          
+        //console.log(value * value * value * value);
+        // return value * value * value * value;
+        else return "Este no es un exponente permitido";
+    }    
 
 }
 
@@ -70,8 +85,34 @@ function exponencial(exp) {
 // Aclaraciones: el segundo parametro que recibe la funcion ('direccion') puede ser pasado vacio (null)
 
 function direcciones(laberinto) {
-
+    let countParedes = 0;
+    if(typeof laberinto == 'undefined'){
+        return '';
+    }
+    for(key in laberinto){
+        if(laberinto[key] != 'pared' && laberinto[key] != 'destino'){
+            array.push(key);
+            direcciones(laberinto[key], array);
+        }
+        if(laberinto[key] == 'destino'){
+            array.push(key);
+            return 
+        }
+        if(laberinto[key] == 'pared'){
+            this.countParedes++;
+        }
+        if(this.countParedes == 4){
+            array = [];
+            return;
+        }
+    }
+    if(array.length == 0){
+        return "";
+    }
+    return array.join('');
 }
+
+
 
 
 // EJERCICIO 3
@@ -88,6 +129,36 @@ function direcciones(laberinto) {
 // deepEqualArrays([0,1,[[0,1,2],1,2]], [0,1,[[0,1,2],1,2]]) => true
 
 function deepEqualArrays(arr1, arr2) {
+    let myBool;
+    //Caso en que los array tengan distinta longitud
+    if(arr1.length != arr2.length){
+        return false;
+    }
+    for(let i = 0; i < arr1.length; i++){
+        if(typeof arr1[i] == 'object' && typeof arr2[i] == 'object'){
+            myBool = deepEqualArrays(arr1[i], arr2[i]);
+            if(!myBool){
+                break;
+            }
+            continue;
+        } 
+        //De ser iguales mi booleano es true
+        if(arr1[i] === arr2[i]){
+            myBool = true;
+        }
+        //De ser distintos salgo del for
+        else{
+            myBool = false;
+            break;
+        }
+    }
+    return myBool;
+
+
+
+
+
+
 
 }
 
